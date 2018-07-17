@@ -1,36 +1,48 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[56]:
 
 
-#快排
-def Partition(A,p,r):
-    x = A[r]
-    i = p-1
-    for j in range(p,r):
-        if A[j]<=x:
-            i += 1
-            A[i],A[j] = A[j],A[i]
-    A[i+1],A[r] = A[r],A[i+1]
-    return i+1
-        
-def QuickSort(A,p,r):
-        if p<r:
-            q = Partition(A,p,r)
-            QuickSort(A,p,q-1)
-            QuickSort(A,q+1,r)
-            
-#计数排序
-def countsort(A,k):
-    c = [0]*(k+1)
-    b = [None]*len(A)
-    for i in range(len(A)):
-        c[A[i]] += 1
-    for i in range(1,k+1):
-        c[i] = c[i]+c[i-1]
-    for i in range(len(A)-1,-1,-1):
-        b[c[A[i]]-1] = A[i]
-        c[A[i]] -= 1
-    return b
+#Stake
+class Stake(object):
+    def __init__(self,S = []):
+        self.S = S
+        self.top = len(S)-1
+    def stake_empty(self):
+        return self.top <0
+
+    def push(self,x):
+        self.top += 1
+        self.S.append(x)
+
+    def pop(self):
+        if self.stake_empty():
+            return 'Eror Underflow'
+        else:
+            self.top -= 1
+        return self.S.pop()
+#Queue
+class Queue(object):
+    def __init__(self,Q ,head,tail):
+        self.Q = Q
+        self.head  = head
+        self.tail = tail
+    def enqueue(self,x):
+        if self.head == self.tail +1 or (self.head ==0 and self.tail == len(self.Q)-1):
+            return 'overflow'
+        Q[self.tail] = x
+        if self.tail == len(self.Q)-1:
+            self.tail = 0
+        else:
+            self.tail += 1
+    def dequeue(self):
+        if self.tail == self.head:
+            return 'underflow'
+        x = Q[self.head]
+        if self.head  == len(Q)-1:
+            self.head = 0
+        else:
+            self.head += 1
+        return x
 
